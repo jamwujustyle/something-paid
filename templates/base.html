@@ -5,6 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="icon" href="/static/favicon.svg">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
@@ -14,6 +16,9 @@
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     /* Style for the search container */
+    /* body { */
+      /* background-color: pink; */
+    /* } */
 .search-container {
   display: flex;
   justify-content: center;
@@ -73,6 +78,7 @@
       padding: 25px;
     }
     
+    
     .carousel-inner img {
   width: 100%; /* Make image fill the container width */
   height: auto; /* Maintain aspect ratio */
@@ -103,8 +109,8 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <!-- <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
@@ -164,22 +170,44 @@
     <div class="row">
       <div class="col-sm-6">
         <div class="well">
-          <h4>Our Mission</h4>
-          <p>We specialize in providing the best prices and ratings for smartphones, laptops, and other tech needs. Our focus is on delivering quality products tailored to meet your requirements and finances.</p>
+          <h4>our Mission</h4>
+          <p>we specialize in providing the best prices and ratings for smartphones, laptops, and other tech needs. Our focus is on delivering quality products tailored to meet your requirements and finances.</p>
         </div>
       </div>
     </div>
     <div class="search-container">
-        <form action="" method="get">
-          <input type="text" class="search-bar" placeholder="Search products...">
+        <form action="/" method="get">
+          <input type="text" class="search-bar" name="search" placeholder="Search products...">
           <button type="submit" class="search-btn">Search</button>
         </form>
       </div>
+
+        {% if products %}
+            <h2>search results:</h2>
+            <ul>
+                {% for product in products %}
+                    <li> {{product.marketplace}} - {{ product.name }} - ${{ product.price }} - Rating: {{ product.rating }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>no products found matching your search.</p>
+        {% endif %}
+
+        {% if optimal_product %}
+    <div class="alert alert-success">
+        <strong>optimal choice:</strong> 
+        marketplace: {{ optimal_product.marketplace }}, 
+        name: {{ optimal_product.name }},
+        price: ${{ optimal_product.price }},
+        rating: {{ optimal_product.rating }}
+    </div>
+        {% else %}
+        <p>...</p>
+
+    {% endif %}
+
+
   </div><br><br><br><br><br><br><br><br><br><br><br>
-
-  
-
-
 <footer class="container-fluid text-center">
   <p>codeBuddha</p>
 </footer>
